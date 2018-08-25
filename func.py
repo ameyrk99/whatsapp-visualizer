@@ -11,7 +11,9 @@ def rmdates(filename):
     temp = []
     for i in lines:
         try:
-            temp += i.split("-")[1:]
+            spl = i.split("-")[1:]
+            tp = "-".join(spl)
+            temp.append(tp)
         except:
             print("Error: ln[{}]".format(lines.index(i)))
 
@@ -39,6 +41,7 @@ def fixnl(lst):
 
 
 def getusers(lines):
+    """Returns a list of users in the chat"""
     usrs = []
     for i in lines:
         if ":" in i:
@@ -55,6 +58,7 @@ def getusers(lines):
     return temp
 
 def numberOfMsgs(users, lines):
+    """Returns the list of messages in chat"""
     emp = [0] * len(users)
 
     for i in lines:
@@ -65,6 +69,7 @@ def numberOfMsgs(users, lines):
     return emp
 
 def words(users, lines):
+    """Returns the number of words per user"""
     emp = [0] * len(users)
 
     for i in lines:

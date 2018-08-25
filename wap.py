@@ -1,6 +1,6 @@
 import func
 
-lines = func.rmdates("chat_full.txt")
+lines = func.rmdates("chat.txt")
 usrs = func.getusers(lines)
 
 number = func.numberOfMsgs(usrs, lines)
