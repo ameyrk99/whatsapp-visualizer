@@ -1,4 +1,5 @@
 from matplotlib import pyplot
+import numpy as np
 
 def rmdates(filename):
     """Remove dates from file"""
@@ -56,7 +57,7 @@ def getusers(lines):
     
     temp = []
     for i in usrs:
-        temp += i   
+        temp += i
 
     return temp
 
@@ -77,6 +78,9 @@ def data(users, lines):
 
             if msg == " <Media omitted>":
                 media[users.index(usr[0])] += 1
+                continue
+
+            if msg == " This message was deleted":
                 continue
 
             wrds[users.index(usr[0])] += len(msg.split(" "))
@@ -127,27 +131,38 @@ def removepunc(strn):
         
     return emp
 
-def vis(usrs, data, topw, filename):
+def vis(usrs, data, topw, filename, gtype, topwrds):
     msgs = data[0]
     wrds = data[1]
     media = data[2]
 
-    # fig = pyplot.figure()
-    ax1 = pyplot.axes([0.7, 0.45, 0.27, 0.5])
     colors = ['#FF7F7F', '#7FBF7F', '#7F7FFF']
-    explode = [0.1]
-    explode += [0]*(len(usrs) - 1)
-    ax1.pie(msgs, explode=explode, labels=usrs, colors=colors,
-        autopct='%1.1f%%', shadow=False, startangle=140)
-    pyplot.title("Messages")
 
-    ax2 = pyplot.axes([0.45, 0.55, 0.20, 0.35])
-    ax2.bar(usrs, media, color=colors)
+    # fig = pyplot.figure()
+    if gtype >= 6:
+        ax1 = pyplot.axes([0.68, 0.37, 0.28, 0.53])
+        ax1.barh(usrs, msgs, color=colors)
+        pyplot.title("Messages")
+    else:
+        ax1 = pyplot.axes([0.6, 0.37, 0.4, 0.53])
+        # explode += [0]*(len(usrs) - 1)
+        explode = [0.0155]*(len(usrs))
+        ax1.pie(msgs, explode=explode, labels=usrs, colors=colors,
+            autopct='%1.1f%%', pctdistance=0.89, shadow=False, startangle=140)
+        # Draw Circle
+        centre_circle = pyplot.Circle((0,0), 0.8, fc="white")
+        fig = pyplot.gcf()
+        fig.gca().add_artist(centre_circle)
+        ax1.axis('equal')
+        pyplot.title("Messages")
+
+    ax2 = pyplot.axes([0.45, 0.37, 0.15, 0.53])
+    ax2.barh(usrs, media, color=colors)
     pyplot.title("Media")
     # pyplot.bar(usrs, media)
 
-    ax3 = pyplot.axes([0.45, 0.1, 0.5, 0.3])
-    ax3.bar(usrs, wrds, color=colors)
+    ax3 = pyplot.axes([0.46, 0.1, 0.5, 0.2])
+    ax3.barh(usrs, wrds, color=colors)
     pyplot.title("Words")
 
     words = []
@@ -158,15 +173,8 @@ def vis(usrs, data, topw, filename):
 
     ax4 = pyplot.axes([0.075, 0.1, 0.3, 0.8])
     ax4.barh(words, count, color=['orange', 'pink'], alpha=0.6)
-    pyplot.title("Most Used Words")
+    pyplot.title("Most Used Words (>= {})".format(topwrds))
 
-    # ax4 = 
-
-    # pyplot.subplot(1, 1, 1)
-    # pyplot.bar(usrs, media)
-    # pyplot.title("Messages")
-
-    # pyplot.legend(["Words", "Messages", "Media"])
 
     # fig.savefig(filename+".png")
     pyplot.show()
