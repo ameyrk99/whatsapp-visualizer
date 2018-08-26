@@ -1,10 +1,11 @@
 import func
 
-lines = func.rmdates("chat.txt")
+file = "chat"
+lines = func.rmdates(file+".txt")
 usrs = func.getusers(lines)
 
-number = func.numberOfMsgs(usrs, lines)
-numberofwords = func.words(usrs, lines)
+data = func.data(usrs, lines)
 
-for i in range(len(usrs)):
-    print("{}: {} | {}".format(usrs[i], number[i], numberofwords[i]))
+topusedwords = func.topwords(data[3], 4)
+
+func.vis(usrs, data, topusedwords, file)
