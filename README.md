@@ -26,7 +26,7 @@ python whatsappvis.py -f chat.txt -l 4 -p y
 
 #### Expected Output:
 ![Screenshot](screenshot.png)
-_Clearly my friend "Ron" has not regard for storage smh._
+_Clearly my friend "Ron" has no regard for storage smh._
 
 #### Expected .csv output:
 ```
