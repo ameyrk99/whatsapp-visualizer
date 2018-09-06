@@ -9,7 +9,7 @@ Vizualize statistics from your whatsapp chat.
 Save the .txt chat file in the same directory as all the .py files. I saved it as `chat.txt` for simplicity
 
 #### Steps:
-- clone th repo
+- clone the repo
     ```
     git clone https://github.com/ameyrk99/whatsapp-vis
     cd whatsapp-vis
