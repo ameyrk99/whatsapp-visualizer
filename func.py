@@ -132,9 +132,9 @@ def removepunc(strn):
         
     return emp
 
-def printcsv(users, data):
-    """Prints out a csv for further use of data"""
-    fl = open("WhatsappStats.csv", "w")
-    print("User,Messages,Words,Media", file=fl)
-    for i in range(len(users)):
-        print("{},{},{},{}".format(users[i][1:], data[0][i], data[1][i], data[2][i]), file=fl)
+# def printcsv(users, data):
+#     """Prints out a csv for further use of data"""
+#     fl = open("WhatsappStats.csv", "w")
+#     print("User,Messages,Words,Media", file=fl)
+#     for i in range(len(users)):
+#         print("{},{},{},{}".format(users[i][1:], data[0][i], data[1][i], data[2][i]), file=fl)

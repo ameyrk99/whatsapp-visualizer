@@ -43,7 +43,7 @@ def main():
     draw.vis(usrs, data, topusedwords, file, pie, clean_lines, mostwords)
 
     # Print out a csv
-    func.printcsv(usrs, data)
+    # func.printcsv(usrs, data)
 
 
 if __name__ == "__main__":
