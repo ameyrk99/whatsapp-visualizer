@@ -2,15 +2,8 @@ from matplotlib import pyplot
 import numpy as np
 
 def rmdates(filename):
-    """Remove dates from file"""
-    data = open(filename, "r")
-    # res = open("rmddates.txt", "w")
-
-    lines = data.read().split("\n")
-    lines = fixnl(lines)
-
-    # print("\n".join(lines), file=res)
-
+    """Removes the dates from the list of lines and returns the new list"""
+    lines = fixnl(filename)
     temp = []
     for i in lines:
         try:
@@ -20,11 +13,14 @@ def rmdates(filename):
         except:
             print("Error: ln[{}]".format(lines.index(i)))
 
-    data.close()
     return temp
 
-def fixnl(lst):
-    """Fix lines: lines with newlines"""
+def fixnl(filename):
+    """Returns list of messages with new lines fixed."""
+    data = open(filename, "r")
+
+    lst = data.read().split("\n")
+
     while True:
         for i in range(1, len(lst)-2):
             if lst[i] == "":
@@ -40,6 +36,8 @@ def fixnl(lst):
             check = 1
         if check == 1:
             break
+
+    data.close()
 
     return lst
 
@@ -89,6 +87,7 @@ def data(users, lines):
     return [msgs, wrds, media, words]
 
 def topwords(wrds, num):
+    """Returns a list of most used words"""
     clean_wrds = []
 
     for i in wrds:
@@ -109,21 +108,23 @@ def topwords(wrds, num):
     return enu
 
 def wordpresent(lst, wrd):
+    """Check if word is already present in the list"""
     for i in lst:
         if wrd == i:
             return True
     return False
 
 def check_res(nestwrds, wrd):
-    check = False
+    """Check if word is inside the list's element's list"""
     for i in nestwrds:
         if wrd in i:
-            check = True
+            return True
 
-    return check
+    return False
 
 
 def removepunc(strn):
+    """Remove punctuation from messages"""
     emp = ""
     for i in strn:
         if i.isnumeric() or i.isalpha():
@@ -131,50 +132,9 @@ def removepunc(strn):
         
     return emp
 
-def vis(usrs, data, topw, filename, gtype, topwrds):
-    msgs = data[0]
-    wrds = data[1]
-    media = data[2]
-
-    colors = ['#FF7F7F', '#7FBF7F', '#7F7FFF']
-
-    # fig = pyplot.figure()
-    if gtype >= 6:
-        ax1 = pyplot.axes([0.68, 0.37, 0.28, 0.53])
-        ax1.barh(usrs, msgs, color=colors)
-        pyplot.title("Messages")
-    else:
-        ax1 = pyplot.axes([0.6, 0.37, 0.4, 0.53])
-        # explode += [0]*(len(usrs) - 1)
-        explode = [0.0155]*(len(usrs))
-        ax1.pie(msgs, explode=explode, labels=usrs, colors=colors,
-            autopct='%1.1f%%', pctdistance=0.89, shadow=False, startangle=140)
-        # Draw Circle
-        centre_circle = pyplot.Circle((0,0), 0.8, fc="white")
-        fig = pyplot.gcf()
-        fig.gca().add_artist(centre_circle)
-        ax1.axis('equal')
-        pyplot.title("Messages")
-
-    ax2 = pyplot.axes([0.45, 0.37, 0.15, 0.53])
-    ax2.barh(usrs, media, color=colors)
-    pyplot.title("Media")
-    # pyplot.bar(usrs, media)
-
-    ax3 = pyplot.axes([0.46, 0.1, 0.5, 0.2])
-    ax3.barh(usrs, wrds, color=colors)
-    pyplot.title("Words")
-
-    words = []
-    count = []
-    for i in topw:
-        words.append(i[1])
-        count.append(i[0])
-
-    ax4 = pyplot.axes([0.075, 0.1, 0.3, 0.8])
-    ax4.barh(words, count, color=['orange', 'pink'], alpha=0.6)
-    pyplot.title("Most Used Words (>= {})".format(topwrds))
-
-
-    # fig.savefig(filename+".png")
-    pyplot.show()
+def printcsv(users, data):
+    """Prints out a csv for further use of data"""
+    fl = open("WhatsappStats.csv", "w")
+    print("User,Messages,Words,Media", file=fl)
+    for i in range(len(users)):
+        print("{},{},{},{}".format(users[i][1:], data[0][i], data[1][i], data[2][i]), file=fl)
