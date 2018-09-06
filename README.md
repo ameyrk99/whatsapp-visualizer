@@ -45,3 +45,4 @@ _.csv for you if you want to further use it_
     ___This is not required.___
 
 - The `-l WORDLENGTH` is to get the minimum word length for the _Most Used Words_ graph. Default is 4. ___This is not required.___
+- It'll take a few seconds if you have too many lines of messages (like 10000+).
