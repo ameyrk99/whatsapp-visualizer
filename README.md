@@ -3,7 +3,11 @@
 Vizualize statistics from your whatsapp chat.
 
 ### Requirements
-- Python 3.*
+- [Python 3.\*](https://www.python.org)
+- matplotlib
+    ```
+    pip3 install matplotlib
+    ```
 - Whatsapp chat txt [export it from your app: More>Export chat>without media]
 
 Save the .txt chat file in the same directory as all the .py files. I saved it as `chat.txt` for simplicity
@@ -16,7 +20,7 @@ Save the .txt chat file in the same directory as all the .py files. I saved it a
     ```
 - Save the file int the directory and execute
     ```
-    python whatsappvis.py -f FILE -l WORDLENGTH -p PIE
+    python3 whatsappvis.py -f FILE -l WORDLENGTH -p PIE
     ```
 
 #### Example:
