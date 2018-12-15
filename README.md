@@ -12,3 +12,4 @@
 ### Note
 - No data is collected.
 - Everything over 12 users is displayed gray.
+- Uses bar graph for messages and word stats for more than 6 users to keep graphs clean.

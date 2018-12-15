@@ -1,4 +1,9 @@
 fixNewLines = (doc) => {
+    /**
+     * Fixes newline in whatsapp chat.
+     * Returns array of lines.
+     */
+
     let lines = doc.split('\n');
     let check = 0;
 
@@ -27,6 +32,11 @@ fixNewLines = (doc) => {
 }
 
 removeDates = (doc) => {
+    /**
+     * Removes dates from the messages to get 'user: message' format
+     * Returns array of array of messages with dates removed and array of dates/timings.
+     */
+
     const lines = fixNewLines(doc);
 
     let temp = [], dates = [];
@@ -48,6 +58,11 @@ removeDates = (doc) => {
 }
 
 getUsers = (lines) => {
+    /**
+     * Get the list of users for the whatsapp chat in question.
+     * Returns array of usernames.
+     */
+
     let temp = [];
 
     for (let i = 0; i < lines.length; i++) {
@@ -64,6 +79,14 @@ getUsers = (lines) => {
 }
 
 getData = (usrs, lines) => {
+    /**
+     * Get data from the messages.
+     * Returns array of:
+     *      array of messages sent, words used, and media sent for each user
+     *      array of all the words user in the chat
+     *      array of timings after removing date part
+     */
+
     let msgs = new Array(usrs.length);
     msgs.fill(0);
     let wrds = new Array(usrs.length);
@@ -79,6 +102,9 @@ getData = (usrs, lines) => {
     for(let i = 0; i < lines.length; i++) {
         const spl = lines[i].split(': ');
         if(spl.length == 1) {
+            /**
+             * Continue if it is not a message. Example: 'XYZ changed the group icon.', etc
+             */
             continue;
         }
 
@@ -88,14 +114,17 @@ getData = (usrs, lines) => {
         times.push(i);
 
         if(message === "<Media omitted>") {
+            /** Added Media */
             mda[usrs.indexOf(usr)]++;
             continue;
         } 
 
         if(message === "This message was deleted") {continue};
 
-        wrds[usrs.indexOf(usr)] += message.split(' ').length;
+        // wrds[usrs.indexOf(usr)] += message.split(' ').length;
         const msg_ct = message.split(' ');
+        wrds[usrs.indexOf(usr)] += msg_ct.length;
+
         for(let j = 0; j < msg_ct.length; j++) {
             if(msg_ct[j].match(letters)){
                 words.push(msg_ct[j]);
@@ -107,6 +136,9 @@ getData = (usrs, lines) => {
 }
 
 getTopUsedWords = (words, minLength) => {
+    /**
+     * Get the array of most top 10 used words above length minLength, and the number of times each of them is used.
+     */
     let satWords = [];
     for(let i = 0; i < words.length; i++) {
         if(words[i].length >= minLength) {
@@ -140,6 +172,9 @@ getTopUsedWords = (words, minLength) => {
 }
 
 getTimes = (dates, crr_times) => {
+    /**
+     * Get timings only for lines with line number in crr_times (to avoid non-message content)
+     */
     let listOfTimings = [];
     let hours = new Array(24);
     hours.fill(0);
@@ -200,13 +235,13 @@ main = (doc) => {
 }
 
 graphData = (anadata) => {
-    var users = anadata[0];
-    var msgs = anadata[1];
-    var wrds = anadata[2];
-    var mda = anadata[3];
+    let users = anadata[0];
+    let msgs = anadata[1];
+    let wrds = anadata[2];
+    let mda = anadata[3];
 
-    var ctx_msgs = document.getElementById("msgs").getContext('2d');
-    var msgChart = new Chart(ctx_msgs, {
+    let ctx_msgs = document.getElementById("msgs").getContext('2d');
+    let msgChart = new Chart(ctx_msgs, {
         type: (users.length > 6) ? 'horizontalBar' : 'bar',
         data: {
             labels: users,
@@ -259,8 +294,8 @@ graphData = (anadata) => {
         }
     });
 
-    var ctx_wrds = document.getElementById("wrds").getContext('2d');
-    var wrdsChart = new Chart(ctx_wrds, {
+    let ctx_wrds = document.getElementById("wrds").getContext('2d');
+    let wrdsChart = new Chart(ctx_wrds, {
         type: (users.length > 6) ? 'horizontalBar' : 'bar',
         data: {
             labels: users,
@@ -309,8 +344,8 @@ graphData = (anadata) => {
         }
     });
 
-    var ctx_mda = document.getElementById("mda").getContext('2d');
-    var mdaChart = new Chart(ctx_mda, {
+    let ctx_mda = document.getElementById("mda").getContext('2d');
+    let mdaChart = new Chart(ctx_mda, {
         type: 'pie',
         data: {
             labels: users,
@@ -354,10 +389,10 @@ graphData = (anadata) => {
 }
 
 graphTopWords = (anadata) => {
-    var words = anadata[4];
+    let words = anadata[4];
 
-    var ctx_msgs = document.getElementById("topWords").getContext('2d');
-    var msgChart = new Chart(ctx_msgs, {
+    let ctx_msgs = document.getElementById("topWords").getContext('2d');
+    let msgChart = new Chart(ctx_msgs, {
         type: 'horizontalBar',
         data: {
             labels: words[0],
@@ -408,11 +443,11 @@ graphTopWords = (anadata) => {
 }
 
 graphTimings = (anadata) => {
-    var times = anadata[5];
+    let times = anadata[5];
     let timesLabel = new Array(24);
     timesLabel.fill('');
 
-    for(var j = 0; j < timesLabel.length; j++) {
+    for(let j = 0; j < timesLabel.length; j++) {
         if(j > 12) {
             timesLabel[j] += (j%12) + ' PM';
             continue;
@@ -423,8 +458,8 @@ graphTimings = (anadata) => {
         }
     }
 
-    var ctx_times = document.getElementById("times").getContext('2d');
-    var timesChart = new Chart(ctx_times, {
+    let ctx_times = document.getElementById("times").getContext('2d');
+    let timesChart = new Chart(ctx_times, {
         type: 'line',
         data: {
             labels: timesLabel,
