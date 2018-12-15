@@ -297,9 +297,9 @@ graphData = (anadata) => {
     let wrds = anadata[2];
     let mda = anadata[3];
 
-    const total_msgs = msgs.reduce(add);
-    const total_wrds = wrds.reduce(add);
-    const total_mda = mda.reduce(add);
+    const total_msgs = (msgs.length == 0) ? 0 : msgs.reduce(add);
+    const total_wrds = (wrds.length == 0) ? 0 : wrds.reduce(add);
+    const total_mda = (mda.length == 0) ? 0 : mda.reduce(add);
 
     const msgs_msg = "Accounts for media and deleted messages too | Total Messages: " + total_msgs;
     const wrds_msg = "Total Words: " + total_wrds;
