@@ -71,14 +71,21 @@ getData = (usrs, lines) => {
     let mda = new Array(usrs.length);
     mda.fill(0);
 
+    let times = [];
+
     let words = [];
     const letters = /^[0-9a-zA-Z]+$/;
 
     for(let i = 0; i < lines.length; i++) {
         const spl = lines[i].split(': ');
+        if(spl.length == 1) {
+            continue;
+        }
+
         const usr = spl[0];
         const message = spl.slice(1).join(': ');
         msgs[usrs.indexOf(usr)]++;
+        times.push(i);
 
         if(message === "<Media omitted>") {
             mda[usrs.indexOf(usr)]++;
@@ -96,7 +103,7 @@ getData = (usrs, lines) => {
         }
     }
 
-    return [msgs, wrds, mda, words];
+    return [msgs, wrds, mda, words, times];
 }
 
 getTopUsedWords = (words, minLength) => {
@@ -132,15 +139,15 @@ getTopUsedWords = (words, minLength) => {
     return [lWords, lCount];
 }
 
-getTimes = (dates) => {
+getTimes = (dates, crr_times) => {
     let listOfTimings = [];
     let hours = new Array(24);
     hours.fill(0);
 
-    for(let i = 0; i < dates.length; i++) {
+    for(let i = 0; i < crr_times.length; i++) {
         try {
             let temp = [];
-            temp = dates[i][0].split(', ').slice(1);
+            temp = dates[crr_times[i]][0].split(', ').slice(1);
             listOfTimings.push(temp[0]);
         } catch(err) {
             console.log(err.type);
@@ -183,10 +190,11 @@ main = (doc) => {
     const users = getUsers(lines);
 
     const data = getData(users, lines);
+    const crr_times = data[4];
 
     const topWords = getTopUsedWords(data[3], 4);
 
-    const times = getTimes(dates);
+    const times = getTimes(dates, crr_times);
 
     return [users, data[0], data[1], data[2], topWords, times];
 }
@@ -237,6 +245,10 @@ graphData = (anadata) => {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Accounts for media and deleted messages too'
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -344,8 +356,6 @@ graphData = (anadata) => {
 graphTopWords = (anadata) => {
     var words = anadata[4];
 
-    // console.log(words);
-
     var ctx_msgs = document.getElementById("topWords").getContext('2d');
     var msgChart = new Chart(ctx_msgs, {
         type: 'horizontalBar',
@@ -399,9 +409,9 @@ graphTopWords = (anadata) => {
 
 graphTimings = (anadata) => {
     var times = anadata[5];
-    console.log(times);
     let timesLabel = new Array(24);
     timesLabel.fill('');
+
     for(var j = 0; j < timesLabel.length; j++) {
         if(j > 12) {
             timesLabel[j] += (j%12) + ' PM';
@@ -427,6 +437,10 @@ graphTimings = (anadata) => {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Accounts for media and deleted messages too'
+            },
             responsive: true,
             tooltips: {
                 mode: 'index',
@@ -461,7 +475,6 @@ graphTimings = (anadata) => {
 const input = document.querySelector('input[type="file"]');
 
 input.addEventListener('change', (e) => {
-    console.log(input.files);
     const reader = new FileReader();
     reader.readAsText(input.files[0]);
     reader.onload = () => {
@@ -477,6 +490,6 @@ input.addEventListener('change', (e) => {
             }
         )
 
-        console.log(result);
+        // console.log(result);
     }
 }, false);

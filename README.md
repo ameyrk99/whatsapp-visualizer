@@ -7,16 +7,7 @@
 - [bootstrap](https://getbootstrap.com) (theme: [lux](https://bootswatch.com/lux/))
 
 #### Expected Output:
-![Screenshot1](images/screenshots/part_1.png)
-
----
-
-![Screenshot2](images/screenshots/part_2.png)
-_Clearly my friend "Hiro" has no regard for storage smh._
-
----
-
-![Screenshot3](images/screenshots/part_3.png)
+![Screenshot](images/screenshots/full.png)
 
 ### Note
 - No data is collected.
