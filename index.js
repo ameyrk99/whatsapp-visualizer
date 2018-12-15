@@ -234,11 +234,23 @@ main = (doc) => {
     return [users, data[0], data[1], data[2], topWords, times];
 }
 
+add = (a, b) => {
+    return a+b;
+}
+
 graphData = (anadata) => {
     let users = anadata[0];
     let msgs = anadata[1];
     let wrds = anadata[2];
     let mda = anadata[3];
+
+    const total_msgs = msgs.reduce(add);
+    const total_wrds = wrds.reduce(add);
+    const total_mda = mda.reduce(add);
+
+    const msgs_msg = "Accounts for media and deleted messages too | Total Messages: " + total_msgs;
+    const wrds_msg = "Total Words: " + total_wrds;
+    const mda_msg = "Total Media: " + total_mda;
 
     let ctx_msgs = document.getElementById("msgs").getContext('2d');
     let msgChart = new Chart(ctx_msgs, {
@@ -282,7 +294,7 @@ graphData = (anadata) => {
         options: {
             title: {
                 display: true,
-                text: 'Accounts for media and deleted messages too'
+                text: msgs_msg
             },
             scales: {
                 yAxes: [{
@@ -334,6 +346,10 @@ graphData = (anadata) => {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: wrds_msg
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -384,6 +400,10 @@ graphData = (anadata) => {
         },
         options: {
             responsive: true,
+            title: {
+                display: true,
+                text: mda_msg
+            },
         }
     });
 }
