@@ -1,77 +1,130 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Whatsapp Parser</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="boostrap.css" />
     <style>
-        .inputfile {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-
-        .inputfile + label {
-            font-size: 1.25em;
-            font-weight: 700;
-            color: white;
-            background-color: black;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .inputfile:focus + label,
-        .inputfile + label:hover {
-            background-color: red;
-        }
-
-        .inputfile:focus + label {
-            outline: 1px dotted #000;
-            outline: -webkit-focus-ring-color auto 5px;
+        .graph {
+            display: none;
         }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div style="height:95%; width:95%; margin-left: auto; margin-right: auto;">
-        <div style="height:98%; width:98%;  margin-left: auto; margin-right: auto; padding-top: 20px">
+        <div
+            style="height:98%; width:98%;  margin-left: auto; margin-right: auto; padding-top: 20px"
+        >
+            <h1 class="display-3" style="text-align: center; color:#16a085;">
+            WhatsappVis
+            </h1>
 
-        <h1 class="display-4" style="text-align: center">WhatsappVis | Visualize your Whatsapp Chat</h1><br>
+            <div class="initial">
+                <fieldset>
+                    <div class="form-group" style="width: 60%; margin-left: auto; margin-right: auto;">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputFile" />
+                                <label class="custom-file-label" for="inputFile">Choose your Whatsapp Chat file</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
 
-        <fieldset>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputFile">
-                        <label class="custom-file-label" for="inputFile">Choose your Whatsapp Chat file</label>
+                <br /><br />
+
+                <div style="text-align: center;">
+                    <h4>Note</h4>
+                    <p>
+                        I <u><b>do not</b></u> collect any data. <br>
+                        Check out the code <a href="https://github.com/ameyrk99/whatsapp-visualizer/tree/gh-pages">here</a>. 
+                        Feel free to fork, modify, and improve the thing :)
+                    </p>
+                </div>
+
+                <br /><br />
+
+                <div style="text-align: center;">
+                    <h4>How to get Whatsapp Chat file</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            1. When inside the chat, click the <u>three dot icon</u> <br> <img src="images/steps/three_dots.png" alt="three dots" style="width: 60%"> <br> <br>
+
+                            2. Click <u>More ></u> <br> <img src="images/steps/dot_menu.png" alt="dot menu" style="height: 35%">
+                        </div>
+                        <div class="col-lg-6">
+                            3. Click <u>Export Chat</u> <br> <img src="images/steps/more_menu.png" alt="more menu" style="height: 35%"> <br><br>
+
+                            4. Select <u>WITHOUT MEDIA</u> <br> <img src="images/steps/media_select.png" alt="without media image" style="width: 40%"> <br><br>
+                            
+                            This is important as it won't work otherwise. <br>
+                            Export the chat file with the method you are comfortable with.
+                        </div>
                     </div>
                 </div>
             </div>
-        </fieldset>
-        
-        <br><br>
-        <div style="height: 900%; width: 100%">
-            <div class="row">
-                <div class="col-lg-4">
-                    <canvas id="msgs" width="100%" height="100%"></canvas>
+
+            <div>
+                <div style="height: 600%; width: 80%; margin-left: auto; margin-right: auto;  padding: 5%; padding-bottom: 2.5%; text-align: center">
+                    <div class="row" id="first">
+                        <div class="col-lg-6 graph">
+                            <h4>Messages Sent</h4>
+                            <canvas id="msgs" width="100%" height="100%"></canvas>
+                        </div>
+                        <div class="col-lg-6 graph">
+                            <h4>Words Used</h4>
+                            <canvas id="wrds" width="100%" height="100%"></canvas>
+                        </div>
+                    </div> <br>
+                    <a href="#rest" class="graph">
+                        <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                            Check most used words and Media Stats
+                        </button>
+                    </a>
                 </div>
-                <div class="col-lg-4">
-                    <canvas id="wrds" width="100%" height="100%"></canvas>
-                </div>
-                <div class="col-lg-4">
-                    <canvas id="mda" width="100%" height="100%"></canvas>
+
+                <div style="height: 600%; width: 80%; margin-left: auto; margin-right: auto; padding: 5%; padding-top: 2.5%; text-align: center">
+                    <div class="row" id="rest">
+                        <div class="col-lg-6 graph">
+                            <h4>Most Used Words</h4>
+                            <canvas id="topWords" width="100%" height="100%; padding: 2%"></canvas>
+                        </div>
+                        <div class="col-lg-6 graph">
+                            <h4>Media Sent</h4>
+                            <canvas id="mda" width="100%" height="100%"></canvas>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <a href="https://github.com/ameyrk99/whatsapp-visualizer/tree/gh-pages" class="graph" target="_blank">
+                                <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                    View Code
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="https://ameyrk.me/whatsapp-visualizer/" class="graph">
+                                <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                    Try another file
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="#first" class="graph">
+                                <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                    Up
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <canvas id="topWords" width="100%" height="100%"></canvas>
-        </div>
     </div>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>

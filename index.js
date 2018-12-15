@@ -120,7 +120,14 @@ getTopUsedWords = (words, minLength) => {
         return b[1] - a[1];
     });
 
-    return sortable.slice(0, 10);
+    const top = sortable.slice(0, 10);
+    let lWords = [], lCount = [];
+    for(let i = 0; i < top.length; i++) {
+        lWords.push(top[i][0]);
+        lCount.push(top[i][1]);
+    }
+
+    return [lWords, lCount];
 }
 
 main = (doc) => {
@@ -155,7 +162,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -163,7 +176,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
                 ],
                 borderWidth: 1
             }]
@@ -193,7 +212,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -201,7 +226,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
                 ],
                 borderWidth: 1
             }]
@@ -231,7 +262,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -239,7 +276,13 @@ graphData = (anadata) => {
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
                 ],
             }]
         },
@@ -252,13 +295,15 @@ graphData = (anadata) => {
 graphTopWords = (anadata) => {
     var words = anadata[4];
 
+    // console.log(words);
+
     var ctx_msgs = document.getElementById("topWords").getContext('2d');
     var msgChart = new Chart(ctx_msgs, {
         type: 'horizontalBar',
         data: {
             labels: words[0],
             datasets: [{
-                label: 'Top Used Words',
+                label: 'Top Used Words (length 4+)',
                 data: words[1],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -266,7 +311,13 @@ graphTopWords = (anadata) => {
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -274,7 +325,13 @@ graphTopWords = (anadata) => {
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
                 ],
                 borderWidth: 1
             }]
@@ -301,9 +358,18 @@ input.addEventListener('change', (e) => {
     reader.onload = () => {
 
         const result = main(reader.result);
-        graphData(result);
+
+        // graphData(result);
         // graphTopWords(result);
 
-        console.log(result);
+        $(document).ready(
+            function () {
+                $(".graph, .initial").fadeToggle(100);
+                graphData(result);
+                graphTopWords(result);
+            }
+        )
+
+        // console.log(result);
     }
 }, false);
