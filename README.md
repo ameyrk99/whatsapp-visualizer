@@ -14,6 +14,10 @@
 ![Screenshot2](images/screenshots/part_2.png)
 _Clearly my friend "Hiro" has no regard for storage smh._
 
+---
+
+![Screenshot3](images/screenshots/part_3.png)
+
 ### Note
 - No data is collected.
 - Everything over 12 users is displayed gray.
