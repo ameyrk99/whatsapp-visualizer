@@ -1,6 +1,6 @@
 # Whatsapp-Visualizer
 
-Vizualize statistics from your whatsapp chat.
+[Vizualize](https://ameyrk.me/whatsapp-visualizer/) statistics from your whatsapp chat.
 
 ### Uses:
 - [chart.js](https://www.chartjs.org)
