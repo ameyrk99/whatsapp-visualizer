@@ -29,20 +29,22 @@ fixNewLines = (doc) => {
 removeDates = (doc) => {
     const lines = fixNewLines(doc);
 
-    let temp = [];
+    let temp = [], dates = [];
 
     for (let i = 0; i < lines.length; i++) {
         try {
             const lineList = lines[i].split(' - ');
-            const datePart = lineList.slice(1);
-            temp.push(datePart.join(' - '));
+            const nonDatePart = lineList.slice(1);
+            const datePart = lineList.slice(0, 1);
+            dates.push(datePart);
+            temp.push(nonDatePart.join(' - '));
         }
         catch(err) {
             console.log(err.message);
         }
     }
 
-    return temp;
+    return [temp, dates];
 }
 
 getUsers = (lines) => {
@@ -130,8 +132,53 @@ getTopUsedWords = (words, minLength) => {
     return [lWords, lCount];
 }
 
+getTimes = (dates) => {
+    let listOfTimings = [];
+    let hours = new Array(24);
+    hours.fill(0);
+
+    for(let i = 0; i < dates.length; i++) {
+        try {
+            let temp = [];
+            temp = dates[i][0].split(', ').slice(1);
+            listOfTimings.push(temp[0]);
+        } catch(err) {
+            console.log(err.type);
+        }
+    }
+
+    let letters = /^[A-Za-z]+$/
+
+    for(let i = 0; i < listOfTimings.length; i++){
+        try{
+            try {
+                temp = listOfTimings[i].split(" ");
+                const hour = parseInt(temp[0].split(":")[0], 10);
+                const m = temp[1];
+
+                if(m.match(letters)){
+                    if(m === "PM") {
+                        hours[hour+12]++;
+                    } else if(m === "AM") {
+                        hours[hour]++;
+                    }
+                }
+            } catch(err) {
+                const hour = parseInt(listOfTimings[i].split(":")[0], 10);
+                hours[hour]++;
+            }
+        } catch(err) {
+            console.log(err.type);
+        }
+    }
+
+    return hours.slice(0, 24);
+}
+
 main = (doc) => {
-    const lines = removeDates(doc);
+    const temp =  removeDates(doc);
+    const lines = temp[0];
+    const dates = temp[1];
 
     const users = getUsers(lines);
 
@@ -139,7 +186,9 @@ main = (doc) => {
 
     const topWords = getTopUsedWords(data[3], 4);
 
-    return [users, data[0], data[1], data[2], topWords];
+    const times = getTimes(dates);
+
+    return [users, data[0], data[1], data[2], topWords, times];
 }
 
 graphData = (anadata) => {
@@ -150,7 +199,7 @@ graphData = (anadata) => {
 
     var ctx_msgs = document.getElementById("msgs").getContext('2d');
     var msgChart = new Chart(ctx_msgs, {
-        type: 'bar',
+        type: (users.length > 6) ? 'horizontalBar' : 'bar',
         data: {
             labels: users,
             datasets: [{
@@ -200,7 +249,7 @@ graphData = (anadata) => {
 
     var ctx_wrds = document.getElementById("wrds").getContext('2d');
     var wrdsChart = new Chart(ctx_wrds, {
-        type: 'bar',
+        type: (users.length > 6) ? 'horizontalBar' : 'bar',
         data: {
             labels: users,
             datasets: [{
@@ -348,6 +397,66 @@ graphTopWords = (anadata) => {
     });
 }
 
+graphTimings = (anadata) => {
+    var times = anadata[5];
+    console.log(times);
+    let timesLabel = new Array(24);
+    timesLabel.fill('');
+    for(var j = 0; j < timesLabel.length; j++) {
+        if(j > 12) {
+            timesLabel[j] += (j%12) + ' PM';
+            continue;
+        } else if(j == 12) {
+            timesLabel[j] += '12 PM';
+        } else {
+            timesLabel[j] += j + ' AM';
+        }
+    }
+
+    var ctx_times = document.getElementById("times").getContext('2d');
+    var timesChart = new Chart(ctx_times, {
+        type: 'line',
+        data: {
+            labels: timesLabel,
+            datasets: [{
+                label: 'Timings Stats',
+                data: times,
+                backgroundColor: 'rgba(19, 144, 119,  0.4)',
+                borderColor: 'rgba(19, 144, 119,  1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Messages'
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
 
 const input = document.querySelector('input[type="file"]');
 
@@ -359,17 +468,15 @@ input.addEventListener('change', (e) => {
 
         const result = main(reader.result);
 
-        // graphData(result);
-        // graphTopWords(result);
-
         $(document).ready(
             function () {
                 $(".graph, .initial").fadeToggle(100);
                 graphData(result);
                 graphTopWords(result);
+                graphTimings(result);
             }
         )
 
-        // console.log(result);
+        console.log(result);
     }
 }, false);

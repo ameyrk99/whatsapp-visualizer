@@ -19,8 +19,8 @@
         <div
             style="height:98%; width:98%;  margin-left: auto; margin-right: auto; padding-top: 20px"
         >
-            <h1 class="display-3" style="text-align: center; color:#16a085;">
-            WhatsappVis
+            <h1 id="top" class="display-3" style="text-align: center; color:#16a085;">
+            WhatsVis
             </h1>
 
             <div class="initial">
@@ -69,8 +69,8 @@
             </div>
 
             <div>
-                <div style="height: 600%; width: 80%; margin-left: auto; margin-right: auto;  padding: 5%; padding-bottom: 2.5%; text-align: center">
-                    <div class="row" id="first">
+                <div style="height: 600%; width: 87%; margin-left: auto; margin-right: auto;  padding: 5%; padding-bottom: 2.5%; text-align: center">
+                    <div class="row">
                         <div class="col-lg-6 graph">
                             <h4>Messages Sent</h4>
                             <canvas id="msgs" width="100%" height="100%"></canvas>
@@ -80,15 +80,27 @@
                             <canvas id="wrds" width="100%" height="100%"></canvas>
                         </div>
                     </div> <br>
-                    <a href="#rest" class="graph">
-                        <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
-                            Check most used words and Media Stats
-                        </button>
-                    </a>
+
+                    <div class="row" id="first">
+                        <div class="col-lg-6">
+                            <a href="https://github.com/ameyrk99/whatsapp-visualizer" class="graph" target="_blank">
+                                    <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                    View Code
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="#first" class="graph">
+                                <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                    Check most used words and Media Stats
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div style="height: 600%; width: 80%; margin-left: auto; margin-right: auto; padding: 5%; padding-top: 2.5%; text-align: center">
-                    <div class="row" id="rest">
+                <div style="height: 600%; width: 87%; margin-left: auto; margin-right: auto; padding: 5%; padding-top: 2.5%; text-align: center">
+                    <div class="row" id="second">
                         <div class="col-lg-6 graph">
                             <h4>Most Used Words</h4>
                             <canvas id="topWords" width="100%" height="100%; padding: 2%"></canvas>
@@ -107,19 +119,55 @@
                             </a>
                         </div>
                         <div class="col-lg-4">
-                            <a href="https://ameyrk.me/whatsapp-visualizer/" class="graph">
+                            <a href="#third" class="graph">
                                 <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
-                                    Try another file
+                                    View Timings Stats
                                 </button>
                             </a>
                         </div>
                         <div class="col-lg-4">
-                            <a href="#first" class="graph">
+                            <a href="#top" class="graph">
                                 <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
-                                    Up
+                                    Go back up
                                 </button>
                             </a>
                         </div>
+                    </div> <br><br><br>
+                
+                    <div id="third" class="graph" style="height: 600%; width: 87%; margin-left: auto; margin-right: auto; padding: 5%; padding-top: 2.5%; text-align: center">
+                        <h4>Timings</h4>
+                        <canvas id="times" width="100%" height="50%; padding: 2%"></canvas> <br><br>
+
+                        <div class="row">
+                                <div class="col-lg-3">
+                                    <a href="https://github.com/ameyrk99/whatsapp-visualizer" class="graph" target="_blank">
+                                        <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                            View Code
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a href="https://ameyrk.me/whatsapp-visualizer/" class="graph">
+                                        <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                            Try another file
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a href="https://www.chartjs.org" class="graph" target="_blank">
+                                        <button type="button" class="btn btn-success" style="background-color: #186ed1; color:white;">
+                                            Chart.js
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a href="#top" class="graph">
+                                        <button type="button" class="btn btn-success" style="background-color: #16a085; color:white;">
+                                            Go back up
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
