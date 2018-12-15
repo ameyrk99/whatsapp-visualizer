@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="boostrap.css" />
     <style>
-        .graph {
+        .graph, .initial {
             display: none;
         }
     </style>
@@ -22,6 +22,73 @@
             <h1 id="top" class="display-3" style="text-align: center; color:#16a085;">
             WhatsVis
             </h1>
+
+            <div class="policy container">
+                <h1>Privacy Policy</h1>
+              
+                <p>
+                  whatsapp-visualizer operates the
+                  https://ameyrk.me/whatsapp-visualizer/ website (the "Service").
+                </p>
+              
+                <p>
+                  This page informs you of our policies regarding the collection, use, and
+                  disclosure of personal data when you use our Service and the choices you
+                  have associated with that data.
+                </p>
+              
+                <h2>Information Collection And Use</h2>
+              
+                <p>
+                  We <b><u>do not</u></b> collect any data. Everything happens on the client-side.
+                </p>
+              
+                <h3>Types of Data Collected</h3>
+              
+                <h4>Personal Data</h4>
+              
+                <p>
+                  No personal data is collected.
+                </p>
+              
+                <ul>
+                  <li>Cookies and Usage Data</li>
+                </ul>
+              
+                <h4>Usage Data</h4>
+              
+                <p>
+                  No usage data is collected.
+                </p>
+              
+                <h4>Tracking & Cookies Data</h4>
+                <p>
+                  Website does not use cookies or tracking data.
+                </p>
+              
+                <h2>Links To Other Sites</h2>
+                <p>
+                  Our Service may contain links to other sites that are not operated by us. If
+                  you click on a third party link, you will be directed to that third party's
+                  site. We strongly advise you to review the Privacy Policy of every site you
+                  visit.
+                </p>
+                <p>
+                  We have no control over and assume no responsibility for the content,
+                  privacy policies or practices of any third party sites or services.
+                </p>
+              
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                <ul>
+                  <li>By email: ameykhairnar99@gmail.com</li>
+                </ul>
+
+                <button type="button" onclick="continueFunc()" class="btn btn-success" style="background-color: #16a085; color:white;">
+                    I understand and choose to continue
+                </button>
+              </div>
+              
 
             <div class="initial">
                 <fieldset>
@@ -84,7 +151,7 @@
                     <div class="row" id="first">
                         <div class="col-lg-6">
                             <a href="https://github.com/ameyrk99/whatsapp-visualizer" class="graph" target="_blank">
-                                    <button type="button" class="btn btn-success" style="background-color: #05070A; color:white;">
+                                <button type="button" class="btn btn-success" style="background-color: #05070A; color:white;">
                                     View Code
                                 </button>
                             </a>
@@ -174,5 +241,14 @@
         </div>
     </div>
     <script src="index.js"></script>
+    <script>
+        continueFunc = () => {
+            $(document).ready(
+                function() {
+                    $(".policy, .initial").fadeToggle(100);
+                }
+            )
+        }
+    </script>
   </body>
 </html>
