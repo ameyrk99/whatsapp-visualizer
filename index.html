@@ -5,9 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Whatsapp Parser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Chart JS -->
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" media="screen" href="boostrap.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <style>
         .graph, .initial {
             display: none;
@@ -16,78 +25,110 @@
   </head>
   <body>
     <div style="height:95%; width:95%; margin-left: auto; margin-right: auto;">
-        <div
-            style="height:98%; width:98%;  margin-left: auto; margin-right: auto; padding-top: 20px"
-        >
+        <div style="height:98%; width:98%;  margin-left: auto; margin-right: auto; padding-top: 20px">
             <h1 id="top" class="display-3" style="text-align: center; color:#16a085;">
             WhatsVis
             </h1>
 
-            <div class="policy container">
-                <h1>Privacy Policy</h1>
-              
-                <p>
-                  WHATSVIS operates the
-                  https://ameyrk.me/whatsapp-visualizer/ website (the "Service").
-                </p>
-              
-                <p>
-                  This page informs you of our policies regarding the collection, use, and
-                  disclosure of personal data when you use our Service and the choices you
-                  have associated with that data.
-                </p>
-              
-                <h2>Information Collection And Use</h2>
-              
-                <p>
-                  We <b><u>do not</u></b> collect any data. Everything happens on the client-side.
-                </p>
-              
-                <h3>Types of Data Collected</h3>
-              
-                <h4>Personal Data</h4>
-              
-                <p>
-                  No personal data is collected.
-                </p>
-              
-                <ul>
-                  <li>Cookies and Usage Data</li>
-                </ul>
-              
-                <h4>Usage Data</h4>
-              
-                <p>
-                  No usage data is collected.
-                </p>
-              
-                <h4>Tracking & Cookies Data</h4>
-                <p>
-                  Website does not use cookies or tracking data.
-                </p>
-              
-                <h2>Links To Other Sites</h2>
-                <p>
-                  Our Service may contain links to other sites that are not operated by us. If
-                  you click on a third party link, you will be directed to that third party's
-                  site. We strongly advise you to review the Privacy Policy of every site you
-                  visit.
-                </p>
-                <p>
-                  We have no control over and assume no responsibility for the content,
-                  privacy policies or practices of any third party sites or services.
-                </p>
-              
-                <h2>Contact Us</h2>
-                <p>If you have any questions about this Privacy Policy, please contact us:</p>
-                <ul>
-                  <li>By email: ameykhairnar99@gmail.com</li>
-                </ul>
+            <div class="policy ">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>Privacy Policy</h1>
 
-                <button type="button" onclick="continueFunc()" class="btn btn-success" style="background-color: #16a085; color:white;">
-                    I understand and choose to continue
-                </button>
-              </div>
+                        <p>
+                        WHATSVIS operates the
+                        https://ameyrk.me/whatsapp-visualizer/ website (the "Service").
+                        </p>
+                    
+                        <p>
+                        This page informs you of our policies regarding the collection, use, and
+                        disclosure of personal data when you use our Service and the choices you
+                        have associated with that data.
+                        </p>
+                    
+                        <h2>Information Collection And Use</h2>
+                    
+                        <p>
+                        We <b><u>do not</u></b> collect any data. Everything happens on the client-side.
+                        </p>
+                    
+                        <h3>Types of Data Collected</h3>
+                    
+                        <h4>Personal Data</h4>
+                    
+                        <p>
+                        No personal data is collected.
+                        </p>
+                    
+                        <ul>
+                        <li>Cookies and Usage Data</li>
+                        </ul>
+                    
+                        <h4>Usage Data</h4>
+                    
+                        <p>
+                        No usage data is collected.
+                        </p>
+                    
+                        <h4>Tracking & Cookies Data</h4>
+                        <p>
+                        Website does not use cookies or tracking data.
+                        </p>
+                    
+                        <h2>Links To Other Sites</h2>
+                        <p>
+                        Our Service may contain links to other sites that are not operated by us. If
+                        you click on a third party link, you will be directed to that third party's
+                        site. We strongly advise you to review the Privacy Policy of every site you
+                        visit.
+                        </p>
+                        <p>
+                        We have no control over and assume no responsibility for the content,
+                        privacy policies or practices of any third party sites or services.
+                        </p>
+                    
+                        <h2>Contact Us</h2>
+                        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                        <ul>
+                        <li>By email: ameykhairnar99@gmail.com</li>
+                        </ul>
+
+                        <button type="button" onclick="continueFunc()" class="btn btn-success" style="background-color: #16a085; color:white;">
+                            I understand and choose to continue
+                        </button>
+                    </div>
+                    <div class="col-lg-6">
+                        <br><br><br><br>
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="images/screenshots/part_1.png" alt="First slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="images/screenshots/part_2.png" alt="Second slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="images/screenshots/part_3.png" alt="Third slide">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
               
 
             <div class="initial">
@@ -240,12 +281,14 @@
             </div>
         </div>
     </div>
-    <script src="index.js"></script>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/graph_wv.js"></script>
     <script>
         continueFunc = () => {
             $(document).ready(
                 function() {
-                    $(".policy, .initial").fadeToggle(100);
+                    $(".policy, .initial").fadeToggle();
                 }
             )
         }
