@@ -1,3 +1,9 @@
+randomRgb = function() {
+    var o = Math.round, r = Math.random, s = 255;
+
+    return [ o(r()*s), o(r()*s), o(r()*s) ];
+}
+
 const colorList = [
     [ 255,  99,   132 ], [ 54,   162,  235 ], [ 255,  206,  86  ],
     [ 75,   192,  192 ], [ 153,  102,  255 ], [ 255,  159,  64  ],
@@ -8,6 +14,7 @@ const colorList = [
     [ 122,  170,  97  ], [ 233,  125,  142 ], [ 190,  59,   146 ],
     [ 134,  103,  158 ], [ 184,  144,  214 ], [ 218,  204,  191 ],
     [ 212,  203,  218 ], [ 147,  108,  60  ], [ 76,   122,  135 ],
+    ...[...Array(50).keys()].map(function () { return randomRgb(); })
 ];
 
 const parsedColorObject = {
@@ -18,6 +25,7 @@ const parsedColorObject = {
         return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`;
     })
   };
+
 
 graphData = (anadata) => {
     let users = anadata[0];
