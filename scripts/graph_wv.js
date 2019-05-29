@@ -19,7 +19,7 @@ const colorList = [
 
 const parsedColorObject = {
     backgroundColor: colorList.map(function(color, index) {
-        return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.5)`;
+        return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.3)`;
     }),
     borderColor: colorList.map(function(color) {
         return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`;
