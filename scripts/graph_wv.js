@@ -285,6 +285,56 @@ graphTimings = (anadata) => {
     });
 }
 
+graphDates = (anadata) => {
+    let dateCounts = anadata[6];
+
+    let ctx_datetimes = document.getElementById("plotDates").getContext('2d');
+    let datetimesChart = new Chart(ctx_datetimes, {
+        type: 'line',
+        data: {
+            labels: Object.keys(dateCounts),
+            datasets: [{
+                label: 'Date Stats',
+                data: Object.values(dateCounts),
+                backgroundColor: 'rgba(19, 144, 119,  0.4)',
+                borderColor: 'rgba(19, 144, 119,  1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Accounts for media and deleted messages too'
+            },
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Messages'
+                    }
+                }]
+            }
+        }
+    });
+}
+
 const input = document.querySelector('input[type="file"]');
 
 input.addEventListener('change', (e) => {
@@ -299,6 +349,7 @@ input.addEventListener('change', (e) => {
                 graphData(result);
                 graphTopWords(result);
                 graphTimings(result);
+                graphDates(result);
             }
         )
     }

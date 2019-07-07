@@ -48,12 +48,12 @@ removeDates = (doc) => {
             const datePart = lineList.slice(0, 1);
             dates.push(datePart);
             temp.push(nonDatePart.join(' - '));
+
         }
         catch(err) {
             console.log(err.message);
         }
     }
-
     return [temp, dates];
 }
 
@@ -78,6 +78,17 @@ getUsers = (lines) => {
     return temp;
 }
 
+countElements = (arr) => {
+
+    var counts = {};
+
+    for (var i = 0; i < arr.length; i++) {
+      var num = arr[i];
+      counts[num] = counts[num] ? counts[num] + 1 : 1;
+    }
+    return counts;
+}
+
 getData = (usrs, lines) => {
     /**
      * Get data from the messages.
@@ -85,6 +96,7 @@ getData = (usrs, lines) => {
      *      array of messages sent, words used, and media sent for each user
      *      array of all the words user in the chat
      *      array of timings after removing date part
+     *      array of datetimes
      */
 
     let msgs = new Array(usrs.length);
@@ -97,6 +109,7 @@ getData = (usrs, lines) => {
     let times = [];
 
     let words = [];
+
     const letters = /^[0-9a-zA-Z]+$/;
 
     for(let i = 0; i < lines.length; i++) {
@@ -224,6 +237,28 @@ getTopUsedWords = (words, minLength) => {
     return [lWords, lCount];
 }
 
+getDateCounts = (dates) => {
+    let datetimes = [];
+    for (let i=0; i<dates.length; i++){
+        try {
+            var datePart = dates[i];
+            if (datePart != ""){
+                var formattedDate = getDates(datePart[0].split(", ").join(" "));
+            }
+            if (formattedDate != "NaN-NaN-NaN"){
+                datetimes.push(formattedDate);
+            }
+        } catch(err) {
+            console.log(err);
+            console.log("Could be a problem on line " + i.toString() + " of target file.");
+            console.log(err.type);
+        }
+
+    }
+    datetimesCounted = countElements(datetimes);
+    return datetimesCounted;
+}
+
 getTimes = (dates, crr_times) => {
     /**
      * Get timings only for lines with line number in crr_times (to avoid non-message content)
@@ -283,10 +318,21 @@ main = (doc) => {
     const topWords = getTopUsedWords(data[3], 3);
 
     const times = getTimes(dates, crr_times);
-
-    return [users, data[0], data[1], data[2], topWords, times];
+    const dateCounts = getDateCounts(dates);
+    
+    return [users, data[0], data[1], data[2], topWords, times, dateCounts];
 }
 
 add = (a, b) => {
     return a+b;
+}
+
+function getDates(dateString) {
+    date = dateString.split(" ")[0];
+    dateParts = date.split("/");
+    time = dateString.split(" ")[1];
+    timeParts = time.split(":");
+    let datetimePart = new Date(dateParts[2], dateParts[1], dateParts[0], timeParts[0], timeParts[1]);
+    let formattedDate = datetimePart.getDate() + "-" + (datetimePart.getMonth() + 1) + "-" + datetimePart.getFullYear()
+    return formattedDate;
 }
