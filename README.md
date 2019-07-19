@@ -15,4 +15,5 @@
 - Uses bar graph for messages and word stats for more than 6 users to keep graphs clean.
 
 ### Updates
+- 2019/07/18: [deparkes](https://github.com/deparkes) added graph for dates.
 - 2018/01/03: Fixed the lowercase and uppercase word issue in most used words; Changed start page to include screenshots; Organized JS code.

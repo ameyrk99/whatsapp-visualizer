@@ -1,32 +1,3 @@
-randomRgb = function() {
-    var o = Math.round, r = Math.random, s = 255;
-
-    return [ o(r()*s), o(r()*s), o(r()*s) ];
-}
-
-const colorList = [
-    [ 255,  99,   132 ], [ 54,   162,  235 ], [ 255,  206,  86  ],
-    [ 75,   192,  192 ], [ 153,  102,  255 ], [ 255,  159,  64  ],
-    [ 192,  75,   75  ], [ 0,    165,  151 ], [ 193,  152,  255 ],
-    [ 255,  133,  92  ], [ 177,  76,   245 ], [ 0,    126,  132 ],
-    [ 206,  52,   93  ], [ 0,    127,  215 ], [ 97,   171,  64  ],
-    [ 52,   128,  20  ], [ 90,   111,  164 ], [ 171,  149,  187 ],
-    [ 122,  170,  97  ], [ 233,  125,  142 ], [ 190,  59,   146 ],
-    [ 134,  103,  158 ], [ 184,  144,  214 ], [ 218,  204,  191 ],
-    [ 212,  203,  218 ], [ 147,  108,  60  ], [ 76,   122,  135 ],
-    ...[...Array(50).keys()].map(function () { return randomRgb(); })
-];
-
-const parsedColorObject = {
-    backgroundColor: colorList.map(function(color, index) {
-        return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.3)`;
-    }),
-    borderColor: colorList.map(function(color) {
-        return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`;
-    })
-  };
-
-
 graphData = (anadata) => {
     let users = anadata[0];
     let msgs = anadata[1];
@@ -35,11 +6,11 @@ graphData = (anadata) => {
 
     const total_msgs = (msgs.length == 0) ? 0 : msgs.reduce(add);
     const total_wrds = (wrds.length == 0) ? 0 : wrds.reduce(add);
-    const total_mda  = (mda.length == 0)  ? 0 : mda.reduce(add);
+    const total_mda = (mda.length == 0) ? 0 : mda.reduce(add);
 
     const msgs_msg = "Accounts for media and deleted messages too | Total Messages: " + total_msgs;
     const wrds_msg = "Total Words: " + total_wrds;
-    const mda_msg  = "Total Media: " + total_mda;
+    const mda_msg = "Total Media: " + total_mda;
 
     let ctx_msgs = document.getElementById("msgs").getContext('2d');
     let msgChart = new Chart(ctx_msgs, {
@@ -49,7 +20,34 @@ graphData = (anadata) => {
             datasets: [{
                 label: '# of Messages',
                 data: msgs,
-                ...parsedColorObject,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
                 borderWidth: 1
             }]
         },
@@ -76,7 +74,34 @@ graphData = (anadata) => {
             datasets: [{
                 label: '# of Words',
                 data: wrds,
-                ...parsedColorObject,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
                 borderWidth: 1
             }]
         },
@@ -103,7 +128,34 @@ graphData = (anadata) => {
             datasets: [{
                 label: '# of Media',
                 data: mda,
-                ...parsedColorObject,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
             }]
         },
         options: {
@@ -127,7 +179,34 @@ graphTopWords = (anadata) => {
             datasets: [{
                 label: 'Top Used Words (length 3+)',
                 data: words[1],
-                ...parsedColorObject,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
                 borderWidth: 1
             }]
         },
@@ -241,7 +320,7 @@ graphDates = (anadata) => {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Date'
+                        labelString: 'Date (MM-DD-YY)'
                     }
                 }],
                 yAxes: [{
@@ -263,7 +342,7 @@ input.addEventListener('change', (e) => {
     reader.readAsText(input.files[0]);
     reader.onload = () => {
         const result = main(reader.result);
-
+        
         $(document).ready(
             function () {
                 $(".graph, .initial").fadeToggle();
